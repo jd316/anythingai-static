@@ -1,0 +1,13 @@
+.sidebarContainer {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.sidebarContainer[data-sidebar-width] {
+  width: attr(data-sidebar-width);
+}
+
+.sidebarContainer:has([data-variant=inset]) {
+  background-color: var(--bg-sidebar);
+} 

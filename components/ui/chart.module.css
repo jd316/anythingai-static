@@ -1,0 +1,32 @@
+.indicator {
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.indicator[data-color-border] {
+  border-color: attr(data-color-border);
+}
+
+.indicator[data-color-bg] {
+  background-color: attr(data-color-bg);
+}
+
+.dotIndicator {
+  height: 0.625rem;
+  width: 0.625rem;
+}
+
+.lineIndicator {
+  width: 0.25rem;
+}
+
+.dashedIndicator {
+  width: 0;
+  border: 1.5px dashed;
+  background-color: transparent;
+}
+
+.nestedDashed {
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+} 

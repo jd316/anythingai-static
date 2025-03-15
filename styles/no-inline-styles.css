@@ -1,0 +1,57 @@
+/* Parallax background with data-parallax-y attribute */
+.parallax-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  transform: translateY(var(--parallax-y));
+}
+
+.parallax-bg[data-parallax-y] {
+  --parallax-y: attr(data-parallax-y);
+}
+
+/* Support for cube data attributes */
+.cube {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(147, 51, 234, 0.2);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.cube[data-size] {
+  --size: attr(data-size);
+}
+
+.cube[data-x][data-y][data-z][data-rotation] {
+  left: attr(data-x);
+  top: attr(data-y);
+  transform: translateZ(attr(data-z)) rotateZ(attr(data-rotation));
+}
+
+/* Chart indicator with data attributes */
+[data-indicator-color] {
+  background-color: var(--indicator-color);
+  border-color: var(--indicator-color);
+}
+
+/* Color variables based on data-indicator-color attribute value */
+[data-indicator-color="#6366f1"] { --indicator-color: #6366f1; }
+[data-indicator-color="#22c55e"] { --indicator-color: #22c55e; }
+[data-indicator-color="#ef4444"] { --indicator-color: #ef4444; }
+[data-indicator-color="#f59e0b"] { --indicator-color: #f59e0b; }
+[data-indicator-color="#06b6d4"] { --indicator-color: #06b6d4; }
+/* For any other color value, we'll handle it with JavaScript */
+
+/* Sidebar width with data attributes */
+[data-sidebar-width] {
+  width: var(--sidebar-custom-width);
+}
+
+[data-sidebar-width="16rem"] { --sidebar-custom-width: 16rem; }
+[data-sidebar-width="18rem"] { --sidebar-custom-width: 18rem; }
+[data-sidebar-width="3rem"] { --sidebar-custom-width: 3rem; } 

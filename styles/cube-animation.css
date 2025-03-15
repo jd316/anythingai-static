@@ -1,0 +1,138 @@
+.cube {
+  position: absolute;
+  width: var(--size, 40px);
+  height: var(--size, 40px);
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(147, 51, 234, 0.2);
+  left: var(--x, 0);
+  top: var(--y, 0);
+  transform: translateZ(var(--z, 0)) rotateX(var(--rotation, 0deg)) rotateY(var(--rotation, 0deg));
+  animation: float 15s infinite linear;
+  animation-delay: var(--delay, 0s);
+}
+
+.cube::before,
+.cube::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.cube::before {
+  right: 100%;
+  background: rgba(59, 130, 246, 0.15);
+  transform: rotateY(-90deg);
+  transform-origin: right;
+}
+
+.cube::after {
+  bottom: 100%;
+  background: rgba(147, 51, 234, 0.15);
+  transform: rotateX(90deg);
+  transform-origin: bottom;
+}
+
+@keyframes float {
+  0% {
+    transform: translateZ(var(--z, 0)) rotateX(var(--rotation, 0deg)) rotateY(var(--rotation, 0deg));
+  }
+  100% {
+    transform: translateZ(var(--z, 0)) rotateX(calc(var(--rotation, 0deg) + 720deg)) rotateY(calc(var(--rotation, 0deg) + 720deg));
+  }
+}
+
+/* 3D Cube styles */
+.cube-3d-container {
+  transform-style: preserve-3d;
+  transform: rotateX(-20deg) rotateY(-20deg);
+}
+
+.cube-3d-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  backdrop-filter: blur(4px);
+  background-image: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+}
+
+/* Cube face rotations */
+.cube-3d-face-0 { transform: rotateY(0deg) translateZ(8rem); }
+.cube-3d-face-1 { transform: rotateY(60deg) translateZ(8rem); }
+.cube-3d-face-2 { transform: rotateY(120deg) translateZ(8rem); }
+.cube-3d-face-3 { transform: rotateY(180deg) translateZ(8rem); }
+.cube-3d-face-4 { transform: rotateY(240deg) translateZ(8rem); }
+.cube-3d-face-5 { transform: rotateY(300deg) translateZ(8rem); }
+
+/* Parallax background */
+.parallax-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url('https://your-actual-hero-image-url.com/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  transform: translateY(var(--parallax-y, 0));
+}
+
+/* Chart component styles */
+.chart-color-indicator {
+  background-color: var(--item-color, #6366f1);
+}
+
+.chart-color-indicator[data-color] {
+  background-color: attr(data-color);
+}
+
+/* Support for specific colors */
+.chart-color-indicator[data-color="#6366f1"] {
+  background-color: #6366f1;
+}
+
+.chart-color-indicator[data-color="#22c55e"] {
+  background-color: #22c55e;
+}
+
+.chart-color-indicator[data-color="#ef4444"] {
+  background-color: #ef4444;
+}
+
+.chart-color-indicator[data-color="#f59e0b"] {
+  background-color: #f59e0b;
+}
+
+.chart-color-indicator[data-color="#06b6d4"] {
+  background-color: #06b6d4;
+}
+
+/* Sidebar styles */
+.sidebar-container {
+  --sidebar-width: attr(data-sidebar-width);
+  --sidebar-width-icon: attr(data-sidebar-width-icon);
+}
+
+.cube-animation {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* This is a placeholder for dynamic positioning that will be handled by JavaScript */
+
+.chart-indicator {
+  /* Base styles will be handled by the CSS module */
+}
+
+.chart-indicator[data-indicator-color] {
+  background-color: var(--chart-color);
+  border-color: var(--chart-color);
+}
+
+.sidebar-container-custom {
+  /* Base styles handled by module */
+}
+
+.sidebar-container-custom[data-sidebar-width] {
+  /* Width handled dynamically */
+} 
