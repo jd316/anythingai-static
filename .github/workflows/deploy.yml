@@ -1,32 +1,43 @@
-name: Deploy to Interserver
+name: Deploy to InterServer
 
 on:
   push:
-    branches: [ main ]  # or master, depending on your default branch
+    branches: [ main ]  # Adjust this to your main branch name (main, master, etc.)
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'  # Match the InterServer Node.js version 14.21.2
+          
+      - name: Install dependencies
+        run: npm ci
         
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Build project
-      run: npm run build
-      
-    - name: Deploy to Interserver
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./out/
-        server-dir: / 
+      - name: Build application
+        run: npm run build
+        
+      - name: Create .env file if it doesn't exist
+        run: |
+          if [ ! -f .env ]; then
+            echo "NODE_ENV=production" > .env
+            echo "PORT=3000" >> .env
+          fi
+        
+      - name: Deploy to InterServer
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./  # Deploy the entire directory
+          server-dir: /anything.ai/  # The path on InterServer where your app should be deployed
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            README.md 

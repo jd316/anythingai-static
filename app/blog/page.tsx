@@ -5,32 +5,67 @@ import NavBar from "@/components/NavBar"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import fs from 'fs';
+import path from 'path';
 
-// Sample blog posts data
-const blogPosts = [
-  {
-    id: 2,
-    title: "What is an AI Agent? How Autonomous Agents Will Reshape the Future of Work",
-    excerpt: "The rise of AI Agents is transforming automation and redefining how work gets done. Unlike traditional AI models that require human input, AI Agents are autonomous, continuously learning and executing tasks with minimal intervention.",
-    date: "March 24, 2025",
-    author: "Anything.ai Team",
-    authorImage: "/images/team.jpg",
-    tags: ["AI", "Agents", "Automation", "Web3"],
-    slug: "what-is-an-ai-agent"
-  },
-  {
-    id: 1,
-    title: "The AI & Web3 Revolution: A New Era of Intelligent Decentralization",
-    excerpt: "The fusion of Artificial Intelligence (AI) and Web3 is transforming the digital landscape. Anything.ai is pioneering this revolution by enabling AI-powered automation in a trustless, decentralized economy.",
-    date: "February 15, 2025",
-    author: "Anything.ai Team",
-    authorImage: "/images/team.jpg",
-    tags: ["AI", "Web3", "Blockchain", "Decentralization"],
-    slug: "ai-web3-revolution"
+// Define the blog post type
+interface BlogPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  author: string;
+  tags: string[];
+}
+
+// This function reads all blog posts metadata from their respective directories
+async function getBlogPosts(): Promise<BlogPost[]> {
+  try {
+    // Get the path to the blog directory
+    const blogDir = path.join(process.cwd(), 'app', 'blog');
+    
+    // Read all subdirectories (each subdirectory is a blog post)
+    const directories = fs.readdirSync(blogDir, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory() && !dirent.name.startsWith('[') && !dirent.name.startsWith('.'))
+      .map(dirent => dirent.name);
+    
+    const posts: BlogPost[] = [];
+    
+    // Read metadata from each blog post directory
+    for (const slug of directories) {
+      try {
+        const metadataPath = path.join(blogDir, slug, 'metadata.json');
+        
+        // Skip directories without metadata files
+        if (!fs.existsSync(metadataPath)) continue;
+        
+        // Read and parse the metadata
+        const metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
+        
+        // Add the slug to the metadata
+        posts.push({
+          slug,
+          ...metadata
+        });
+      } catch (error) {
+        console.error(`Error reading metadata for ${slug}:`, error);
+      }
+    }
+    
+    // Sort by date (newest first)
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return [];
   }
-]
+}
 
-export default function BlogPage() {
+// Ideally, each blog post would export its metadata
+// Next.js 13+ supports metadata exports from page files
+
+export default async function BlogPage() {
+  const blogPosts = await getBlogPosts();
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col">
       <NavBar isHomePage={false} />
@@ -46,9 +81,9 @@ export default function BlogPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {blogPosts.map((post) => (
-              <Card key={post.id} className="bg-gray-800/50 border-gray-700 hover:border-blue-500 transition-colors overflow-hidden flex flex-col">
+              <Card key={post.slug} className="bg-gray-800/50 border-gray-700 hover:border-blue-500 transition-colors overflow-hidden flex flex-col">
                 <CardHeader className="pb-3">
                   <div className="flex items-center space-x-2 text-sm text-gray-400 mb-2">
                     <Clock size={14} />
@@ -65,7 +100,7 @@ export default function BlogPage() {
                 </CardContent>
                 <CardFooter className="flex flex-col space-y-4 pt-4 border-t border-gray-700">
                   <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
+                    {post.tags.map((tag: string) => (
                       <Badge key={tag} variant="outline" className="bg-blue-500/10 text-blue-300 border-blue-500/30">
                         {tag}
                       </Badge>
@@ -75,7 +110,7 @@ export default function BlogPage() {
                     <div className="flex items-center space-x-2">
                       <Avatar className="h-6 w-6">
                         <AvatarFallback className="bg-blue-600 text-white text-xs">
-                          {post.author.split(' ').map(name => name[0]).join('')}
+                          {post.author.split(' ').map((name: string) => name[0]).join('')}
                         </AvatarFallback>
                       </Avatar>
                       <span className="text-sm text-gray-400">{post.author}</span>
@@ -92,6 +127,12 @@ export default function BlogPage() {
             ))}
           </div>
           
+          {blogPosts.length === 0 && (
+            <div className="text-center py-12">
+              <p className="text-gray-400">No blog posts found.</p>
+            </div>
+          )}
+          
           <div className="mt-16 text-center">
             <p className="text-gray-400 mb-4">Want more content about AI and blockchain integration?</p>
             <div className="flex justify-center space-x-4">
@@ -99,7 +140,7 @@ export default function BlogPage() {
                 Subscribe to Newsletter
               </Button>
               <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800">
-                Browse Categories
+                Follow on Social Media
               </Button>
             </div>
           </div>
