@@ -11,6 +11,52 @@ import BlogInteractions from "@/components/BlogInteractions"
 // Sample blog posts data
 const blogPosts = [
   {
+    id: 2,
+    title: "What is an AI Agent? How Autonomous Agents Will Reshape the Future of Work",
+    excerpt: "The rise of AI Agents is transforming automation and redefining how work gets done. Unlike traditional AI models that require human input, AI Agents are autonomous, continuously learning and executing tasks with minimal intervention.",
+    content: `
+      <p>The rise of AI Agents is transforming automation and redefining how work gets done. Unlike traditional AI models that require human input, AI Agents are autonomous, continuously learning and executing tasks with minimal intervention. Their integration with Web3 unlocks a new era of decentralized automation.</p>
+      
+      <h2>What Are AI Agents?</h2>
+      
+      <p>AI Agents are self-operating digital entities that analyze data, make decisions, and take actions autonomously. They leverage AI models, smart contracts, and blockchain technology to function transparently and efficiently.</p>
+      
+      <h2>Use Cases of AI Agents in Web3</h2>
+      
+      <ul>
+        <li><strong>DeFi & Trading:</strong> AI Agents automate portfolio management, optimize yield farming, and execute trades without intermediaries.</li>
+        <li><strong>Decentralized Governance:</strong> DAOs can leverage AI-driven insights for efficient decision-making.</li>
+        <li><strong>Personalized Web3 Assistants:</strong> AI-powered bots manage wallets, suggest transactions, and enhance user experiences.</li>
+        <li><strong>Security & Compliance:</strong> AI Agents detect anomalies in blockchain networks, preventing fraud and ensuring compliance.</li>
+      </ul>
+      
+      <h2>Anything.ai: The AI Agent Marketplace</h2>
+      
+      <p>Anything.ai is pioneering the future of AI Agents by providing a Universal AI Agent Marketplace that enables:</p>
+      
+      <ul>
+        <li><strong>Decentralized AI Services</strong> for Web3 applications.</li>
+        <li><strong>Trustless Execution</strong> via smart contracts.</li>
+        <li><strong>Autonomous AI Agents</strong> to streamline workflows and enhance efficiency.</li>
+      </ul>
+      
+      <h2>Join the AI x Web3 Movement</h2>
+      
+      <p>Autonomous AI Agents are reshaping industries. Are you ready for the future? 🚀</p>
+      
+      <p>Explore Anything.ai: <a href="https://anything.ai" target="_blank" rel="noopener noreferrer">https://anything.ai</a></p>
+      
+      <p>Follow us: <a href="https://twitter.com/Btclayer_" target="_blank" rel="noopener noreferrer">Twitter</a> | <a href="https://t.me/anything_ai" target="_blank" rel="noopener noreferrer">Telegram</a> | <a href="https://www.linkedin.com/company/btclayer/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+    `,
+    date: "March 24, 2025",
+    author: "Anything.ai Team",
+    authorImage: "/images/team.jpg",
+    authorBio: "The Anything.ai Team is a group of AI and blockchain experts dedicated to building the future of decentralized intelligent systems.",
+    tags: ["AI", "Agents", "Automation", "Web3"],
+    slug: "what-is-an-ai-agent",
+    relatedPosts: []
+  },
+  {
     id: 1,
     title: "The AI & Web3 Revolution: A New Era of Intelligent Decentralization",
     excerpt: "The fusion of Artificial Intelligence (AI) and Web3 is transforming the digital landscape. Anything.ai is pioneering this revolution by enabling AI-powered automation in a trustless, decentralized economy.",

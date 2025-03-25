@@ -9,6 +9,16 @@ import { Badge } from "@/components/ui/badge"
 // Sample blog posts data
 const blogPosts = [
   {
+    id: 2,
+    title: "What is an AI Agent? How Autonomous Agents Will Reshape the Future of Work",
+    excerpt: "The rise of AI Agents is transforming automation and redefining how work gets done. Unlike traditional AI models that require human input, AI Agents are autonomous, continuously learning and executing tasks with minimal intervention.",
+    date: "March 24, 2025",
+    author: "Anything.ai Team",
+    authorImage: "/images/team.jpg",
+    tags: ["AI", "Agents", "Automation", "Web3"],
+    slug: "what-is-an-ai-agent"
+  },
+  {
     id: 1,
     title: "The AI & Web3 Revolution: A New Era of Intelligent Decentralization",
     excerpt: "The fusion of Artificial Intelligence (AI) and Web3 is transforming the digital landscape. Anything.ai is pioneering this revolution by enabling AI-powered automation in a trustless, decentralized economy.",
