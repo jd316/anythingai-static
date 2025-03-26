@@ -37,5 +37,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./deploy/  # This will contain only the out directory contents and .htaccess
-          server-dir: /anything.ai/  # Your InterServer directory
+          server-dir: /  # Deploy directly to root
           dangerous-clean-slate: true  # This will delete all files in the server-dir before uploading 
