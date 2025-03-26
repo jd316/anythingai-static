@@ -2,7 +2,7 @@ name: Deploy to InterServer
 
 on:
   push:
-    branches: [ main ]  # Adjust this to your main branch name (main, master, etc.)
+    branches: [ main ]  # Adjust this to your main branch name
 
 jobs:
   deploy:
@@ -13,7 +13,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14'  # Match the InterServer Node.js version 14.21.2
+          node-version: '18'  # Using Node.js 18 for better compatibility
           
       - name: Install dependencies
         run: npm ci
@@ -21,12 +21,14 @@ jobs:
       - name: Build application
         run: npm run build
         
-      - name: Create .env file if it doesn't exist
+      - name: Prepare deployment files
         run: |
-          if [ ! -f .env ]; then
-            echo "NODE_ENV=production" > .env
-            echo "PORT=3000" >> .env
-          fi
+          # Create deployment directory
+          mkdir deploy
+          # Copy only the contents of out directory (not the out directory itself)
+          cp -r out/* deploy/
+          # Copy .htaccess
+          cp .htaccess deploy/
         
       - name: Deploy to InterServer
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -34,10 +36,6 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./  # Deploy the entire directory
-          server-dir: /anything.ai/  # The path on InterServer where your app should be deployed
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            README.md 
+          local-dir: ./deploy/  # This will contain only the out directory contents and .htaccess
+          server-dir: /anything.ai/  # Your InterServer directory
+          dangerous-clean-slate: true  # This will delete all files in the server-dir before uploading 
