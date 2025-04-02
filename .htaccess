@@ -10,7 +10,12 @@ Options +FollowSymLinks
 RewriteCond %{HTTP:Authorization} .
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-# Handle direct blog post URLs first
+# Serve blog.html for /blog/ directory request
+RewriteCond %{REQUEST_URI} ^/blog/?$
+RewriteCond %{DOCUMENT_ROOT}/blog.html -f
+RewriteRule ^blog/?$ /blog.html [L]
+
+# Handle direct blog post URLs
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} ^/blog/([^/]+)/?$
