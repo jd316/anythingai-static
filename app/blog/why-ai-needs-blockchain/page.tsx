@@ -11,7 +11,7 @@ export default function BlogPostNewPage() {
   const post = {
     id: "3", // Assuming this is the 3rd post
     title: "Why AI Needs Blockchain: Decentralized Compute, Data & Security",
-    date: "April 2, 2025",
+    date: "March 17, 2025",
     author: "Anything.ai Team",
     authorBio: "The Anything.ai Team is a group of AI and blockchain experts dedicated to building the future of decentralized intelligent systems.",
     tags: ["AI", "Blockchain", "Decentralization", "Security", "Data Privacy"]
