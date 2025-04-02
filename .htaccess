@@ -1,5 +1,8 @@
 RewriteEngine On
 
+# Disable Directory Indexing
+Options -Indexes
+
 # Enable rewrite rules
 Options +FollowSymLinks
 
